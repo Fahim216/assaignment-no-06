@@ -23,27 +23,29 @@ const showImages = (images,length) => {
   imagesArea.style.display = 'block';
   gallery.innerHTML = '';
 
-  if(length === 0){
+if(length === 0)
+{
         numberOfResult.style.display = 'none';
         const alertDiv = document.createElement('div');
         alertDiv.className = 'alert';
         const alertMessage = `
-            <p class="alertMessage"> OOPS! NO MATCH FOUND </p>
+            <p class="alertMessage">Your search result is not found!!!!!</p>
         `;
         alertDiv.innerHTML = alertMessage;
         alertContainer.appendChild(alertDiv);
         alertContainer.style.display = 'block';
   }
 
-  // show gallery title
+  // gallery title
   galleryHeader.style.display = 'flex';
-  images.forEach(image => {
+  images.forEach(image => 
+    {
     
     let div = document.createElement('div');
     div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
     div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
     gallery.appendChild(div)
-  })
+    })
   toggleSpinner(false);
 
 }
@@ -61,23 +63,24 @@ const selectItem = (event, img) => {
   let element = event.target;
   element.classList.add('added');
   let item = sliders.indexOf(img);
-  if (item === -1) {
+if (item === -1) {
     sliders.push(img);
   } 
-  else {
+else {
     element.classList.remove('added');
     sliders.splice(item,1);
   }
 }
-// selectItem(event, img);
+// image slider select;
 var timer
-const createSlider = () => {
-  // check slider image length
-  if (sliders.length < 2) {
-    alert('Select at least 2 image.')
+const createSlider = () => 
+{
+  // slider image length
+if (sliders.length < 2) {
+    alert('Select minimum 2 images')
     return;
-  }
-  // crate slider previous next area
+}
+  // slider before area
   sliderContainer.innerHTML = '';
   const prevNext = document.createElement('div');
   prevNext.className = "prev-next d-flex w-100 justify-content-between align-items-center";
@@ -88,11 +91,13 @@ const createSlider = () => {
 
   sliderContainer.appendChild(prevNext)
   document.querySelector('.main').style.display = 'block';
-  // hide image aria
+  // img hide area
+
   imagesArea.style.display = 'none';
   let duration = document.getElementById('duration').value || 1000;
-  if( duration < 0 ){
-    alert("You can't put negative value,Duration has been set to default");
+if( duration < 0 )
+{
+    alert("Don't set a negative value . its set by default");
     duration = 1000;
   }
   sliders.forEach(slide => {
@@ -104,27 +109,31 @@ const createSlider = () => {
     sliderContainer.appendChild(item)
   })
   changeSlide(0)
-  timer = setInterval(function () {
+  timer = setInterval(function () 
+  {
     slideIndex++;
     changeSlide(slideIndex);
   }, duration);
 }
 
-// change slider index 
-const changeItem = index => {
+// slider index changing  
+const changeItem = index =>
+{
   changeSlide(slideIndex += index);
 }
 
-// change slide item
+// slide item change
 const changeSlide = (index) => {
 
   const items = document.querySelectorAll('.slider-item');
-  if (index < 0) {
+if (index < 0)
+  {
     slideIndex = items.length - 1
     index = slideIndex;
   };
 
-  if (index >= items.length) {
+if (index >= items.length) 
+  {
     index = 0;
     slideIndex = 0;
   }
@@ -143,19 +152,22 @@ searchBtn.addEventListener('click', function () {
   alertContainer.innerHTML = "" ;
   clearInterval(timer);
   const search = document.getElementById('search');
-  if(search.value==0){
+if(search.value==0)
+{
     numberOfResult.style.display = 'none';
     gallery.innerHTML='';
     const alertDiv = document.createElement('div');
     alertDiv.className = 'alert';
     const alertMessage = `
-        <p class="alertMessage"> PLEASE ENTER A VALID INPUT </p>
+        <p class="alertMessage"> Enter a valid input </p>
     `;
     alertDiv.innerHTML = alertMessage;
     alertContainer.style.display = 'block';
     alertContainer.appendChild(alertDiv);
   }
-  else{
+
+else
+{
     alertContainer.style.display = 'none';
     getImages(search.value)
     sliders.length = 0;
@@ -163,18 +175,21 @@ searchBtn.addEventListener('click', function () {
     
   }
 })
+
 searchItem.addEventListener("keypress", function(event) {
-  if (event.keyCode === 13) {
+if (event.keyCode === 13) {
    event.preventDefault();
    document.getElementById("search-btn").click();
   }
 });
+
 const toggleSpinner= (show)=>{
   const spinner = document.getElementById('spinner');
-  if(show){
+if(show){
     spinner.classList.remove('d-none'); 
   }
-  else{
+else
+  {
     spinner.classList.add('d-none');
   }
 }
